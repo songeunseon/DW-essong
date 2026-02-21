@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SES - Web Development Learning Portfolio</title>
+  <meta name="description" content="5개월간의 웹 개발 학습 여정 - HTML, CSS, JavaScript, 데이터 시각화">
+  <link rel="icon" href="./portfolio/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./portfolio/css/reset.css">
+  <link rel="stylesheet" href="./portfolio/css/style.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="#" class="header-logo">
+        <span class="logo-text">SES</span>
+      </a>
+      <nav class="header-nav" id="month-nav"></nav>
+      <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="메뉴 열기"></button>
+      <button class="theme-toggle" id="theme-toggle" aria-label="테마 전환"></button>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobile-nav"></div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Web Development<br>Learning Journey</h1>
+      <p class="hero-subtitle">데이터 시각화 UI 개발자 트랙 2023</p>
+      <div class="hero-stats" id="hero-stats"></div>
+      <div class="month-cards" id="month-cards"></div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <main class="timeline-container" id="timeline"></main>
+
+  <!-- HOMEWORK -->
+  <section class="section" id="homework"></section>
+
+  <!-- ADVANCED PROJECTS -->
+  <section class="section" id="advanced"></section>
+
+  <!-- PREVIEW PANEL -->
+  <aside class="preview-panel" id="preview-panel">
+    <div class="preview-header">
+      <div class="preview-nav">
+        <button id="prev-file" aria-label="이전 파일">&#8592;</button>
+        <span id="preview-title">-</span>
+        <button id="next-file" aria-label="다음 파일">&#8594;</button>
+      </div>
+      <div class="preview-actions">
+        <a id="new-tab-link" href="#" target="_blank" rel="noopener">새 탭에서 열기</a>
+        <button id="close-preview" aria-label="닫기">&#10005;</button>
+      </div>
+    </div>
+    <div class="preview-iframe-wrap">
+      <iframe id="preview-iframe" title="파일 미리보기" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    </div>
+    <div class="preview-footer">
+      <code id="preview-path">-</code>
+    </div>
+  </aside>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>SES &mdash; 데이터 시각화 UI 개발자 트랙 2023</p>
+  </footer>
+
+  <script src="./portfolio/js/data.js"></script>
+  <script src="./portfolio/js/app.js"></script>
+</body>
+</html>
