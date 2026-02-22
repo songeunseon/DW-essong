@@ -324,14 +324,6 @@ body {
 .timeline-entry {
   position: relative;
   margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.timeline-entry.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .timeline-dot {
@@ -840,13 +832,13 @@ body.panel-open .overlay {
 /* ============================================
    SCROLL ANIMATIONS
    ============================================ */
-.month-section {
+.timeline-entry {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.month-section.visible {
+.timeline-entry.visible {
   opacity: 1;
   transform: translateY(0);
 }

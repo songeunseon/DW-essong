@@ -373,7 +373,7 @@
   // ---- SCROLL OBSERVER ----
   function initScrollObserver() {
     // Animate entries on scroll
-    var entries = document.querySelectorAll('.timeline-entry, .month-section');
+    var entries = document.querySelectorAll('.timeline-entry');
     var observer = new IntersectionObserver(function (items) {
       items.forEach(function (item) {
         if (item.isIntersecting) {
@@ -385,42 +385,46 @@
     entries.forEach(function (el) { observer.observe(el); });
 
     // Highlight active month tab on scroll
-    var headerHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 60;
+    var lastActiveId = null;
 
     function updateActiveTab() {
       var sections = document.querySelectorAll('.month-section, #homework, #advanced');
-      var tabs = document.querySelectorAll('#month-nav .nav-tab, #mobile-nav .nav-tab');
+      var scrollTop = window.scrollY || document.documentElement.scrollTop;
+      var headerOffset = 120;
       var activeId = null;
 
-      sections.forEach(function (section) {
-        var rect = section.getBoundingClientRect();
-        // Section is considered active when its top is above viewport center
-        if (rect.top <= headerHeight + 100) {
-          activeId = section.id;
+      for (var i = 0; i < sections.length; i++) {
+        var sectionTop = sections[i].offsetTop - headerOffset;
+        if (scrollTop >= sectionTop) {
+          activeId = sections[i].id;
         }
+      }
+
+      // Don't update DOM if nothing changed
+      if (activeId === lastActiveId) return;
+      lastActiveId = activeId;
+
+      var tabs = document.querySelectorAll('#month-nav .nav-tab, #mobile-nav .nav-tab');
+      tabs.forEach(function (tab) {
+        var isActive = tab.getAttribute('data-target') === activeId;
+        tab.classList.toggle('active', isActive);
       });
 
-      if (activeId) {
-        tabs.forEach(function (tab) {
-          var isActive = tab.getAttribute('data-target') === activeId;
-          tab.classList.toggle('active', isActive);
-        });
-
-        // Auto-scroll the header nav to show the active tab
-        var activeTab = document.querySelector('#month-nav .nav-tab.active');
-        if (activeTab) {
-          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      // Auto-scroll the header nav to keep active tab visible
+      var activeTab = document.querySelector('#month-nav .nav-tab.active');
+      if (activeTab) {
+        var nav = document.getElementById('month-nav');
+        var tabLeft = activeTab.offsetLeft;
+        var tabWidth = activeTab.offsetWidth;
+        var navScroll = nav.scrollLeft;
+        var navWidth = nav.offsetWidth;
+        if (tabLeft < navScroll || tabLeft + tabWidth > navScroll + navWidth) {
+          nav.scrollTo({ left: tabLeft - navWidth / 2 + tabWidth / 2, behavior: 'smooth' });
         }
       }
     }
 
-    var scrollTimer;
-    window.addEventListener('scroll', function () {
-      if (scrollTimer) cancelAnimationFrame(scrollTimer);
-      scrollTimer = requestAnimationFrame(updateActiveTab);
-    });
-
-    // Run once on init
+    window.addEventListener('scroll', updateActiveTab, { passive: true });
     updateActiveTab();
   }
 
